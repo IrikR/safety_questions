@@ -1,15 +1,20 @@
 #-*- coding: utf-8 -*-
 """
-
+Модуль для взаимодействия основных программ с базой данных SQLite3.
+Используется чтение и запись данных в БД.
 """
 
-__all__ = ["ReadDB"]
+__all__ = ["ReadDB", "WriteDB"]
 
 import sqlite3
+from datetime import datetime
 
 
 class ConnectDB:
-
+    """
+    Родительский класс.
+    Выполняет подключение к БД.
+    """
     def __init__(self):
         self.themes_dict = {
             "team_1": "question_theme_1",
@@ -23,15 +28,31 @@ class ConnectDB:
 
     @staticmethod
     def conn_db(inquiry_id):
+        """
+        Используется для чтения данных из БД.
+        """
         with sqlite3.connect('database/questions.db3') as conn:
             cur = conn.cursor()
             res = cur.execute(inquiry_id)
             one_result = res.fetchone()
             return one_result
 
+    @staticmethod
+    def conn_db_write(inquiry_id):
+        """
+        Используется для записи данных в БД.
+        """
+        with sqlite3.connect('database/questions.db3') as conn:
+            cur = conn.cursor()
+            cur.execute(inquiry_id)
+            conn.commit()
+
 
 class ReadDB(ConnectDB):
-
+    """
+    Дочерний класс.
+    Производит считывание данных из БД по заданным параметрам.
+    """
     def __init__(self):
         super().__init__()
 
@@ -65,18 +86,40 @@ class ReadDB(ConnectDB):
         return self.conn_db(inquiry_id)
 
 
-if __name__ == "__main__":
-    read_db = ReadDB()
-    ques = read_db.read_question(id_question=4,  question_topic="team_1")
-    print(ques)
-    # ques = conn_db.read_db()
-    correct_answer = ques[6]
-    print(correct_answer)
-    theme = ques[6]
-    print(theme)
-    ques_1 = ques[1:7]
-    for i in ques_1:
-        print(i)
+class WriteDB(ConnectDB):
+    """
+    Дочерний класс.
+    Производит запись данных в БД по заданным параметрам.
+    """
+    def __init__(self, names):
+        self.names = names
+        super().__init__()
 
-    num, *_ = read_db.number_of_questions(question_topic="team_1")
-    print(num)
+    def write_db(self, correct_answer: int, wrong_answer: int):
+        """
+        Функция используется для записи в БД результатов тестирования.
+        """
+        inquiry = f"INSERT INTO result (names, correct_answer, wrong_answer, date) " \
+                  f"VALUES (\"{self.names}\", {correct_answer}, {wrong_answer}, \"{datetime.now()}\");"
+        self.conn_db(inquiry)
+
+
+if __name__ == "__main__":
+    # read_db = ReadDB()
+    # ques = read_db.read_question(id_question=4,  question_topic="team_1")
+    # print(ques)
+    # # ques = conn_db.read_db()
+    # correct_answer = ques[6]
+    # print(correct_answer)
+    # theme = ques[6]
+    # print(theme)
+    # ques_1 = ques[1:7]
+    # for i in ques_1:
+    #     print(i)
+    #
+    # num, *_ = read_db.number_of_questions(question_topic="team_1")
+    # print(num)
+    wr_db = WriteDB("Вася Пупкин")
+    wr_db.write_db(correct_answer=1, wrong_answer=6)
+    print(datetime.time(datetime.now()))
+    print(datetime.now())
