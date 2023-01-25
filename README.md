@@ -1,5 +1,6 @@
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/IrikR/safety_questions?color=blue)
 ![GitHub](https://img.shields.io/github/license/irikr/safety_questions?color=green)
+![GitHub Version](https://img.shields.io/github/v/release/IrikR/safety_questions?display_name=tag)
 
 ## Проверка знаний по электробезопасности.
 + Тема 1. Правила устройства электроустановок
