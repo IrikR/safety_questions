@@ -38,6 +38,17 @@ class ConnectDB:
             return one_result
 
     @staticmethod
+    def read_all_users(inquiry_id):
+        """
+        Используется для чтения данных из БД.
+        """
+        with sqlite3.connect('database/questions.db3') as conn:
+            cur = conn.cursor()
+            res = cur.execute(inquiry_id)
+            users: list = res.fetchall()
+            return users
+
+    @staticmethod
     def conn_db_write(inquiry_id):
         """
         Используется для записи данных в БД.
@@ -96,22 +107,32 @@ class ReadDB(ConnectDB):
                  f"FROM \"result\" r WHERE names = '{names}' ;"
         return self.conn_db(sample)
 
+    def select_all_users(self):
+        """
+        SELECT DISTINCT names FROM "result" r ;
+        """
+        users_list: list = []
+        select_users = f"SELECT DISTINCT names FROM \"result\" r ;"
+        users = self.read_all_users(select_users)
+        for i in users:
+            users_list.append(i[0])
+        return users_list
+
 
 class WriteDB(ConnectDB):
     """
     Дочерний класс.
     Производит запись данных в БД по заданным параметрам.
     """
-    def __init__(self, names):
-        self.names = names
+    def __init__(self):
         super().__init__()
 
-    def write_db(self, correct_answer: int, wrong_answer: int):
+    def write_db(self, names: str, correct_answer: int, wrong_answer: int):
         """
         Функция используется для записи в БД результатов тестирования.
         """
         inquiry = f"INSERT INTO result (names, correct_answer, wrong_answer, date) " \
-                  f"VALUES (\"{self.names}\", {correct_answer}, {wrong_answer}, \"{datetime.now()}\");"
+                  f"VALUES (\"{names}\", {correct_answer}, {wrong_answer}, \"{datetime.now()}\");"
         self.conn_db(inquiry)
 
 
@@ -130,9 +151,10 @@ if __name__ == "__main__":
     #
     # num, *_ = read_db.number_of_questions(question_topic="team_1")
     # print(num)
-    wr_db = WriteDB("Вася Пупкин")
-    wr_db.write_db(correct_answer=4, wrong_answer=3)
-    # print(datetime.time(datetime.now()))
-    # print(datetime.now())
-    count, corr_ans, wron_ans = read_db.select_by_name("Вася Пупкин")
-    print(count, corr_ans, wron_ans)
+    # wr_db = WriteDB()
+    # wr_db.write_db(names="Вася Пупкин", correct_answer=4, wrong_answer=3)
+    # # print(datetime.time(datetime.now()))
+    # # print(datetime.now())
+    # count, corr_ans, wron_ans = read_db.select_by_name("Вася Пупкин")
+    # print(count, corr_ans, wron_ans)
+    print(read_db.select_all_users())
