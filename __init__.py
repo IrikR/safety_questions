@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__all__ = ["main", "question", "connect_db", "utils", "database"]
+__all__ = ["NAME", "main", "question", "connect_db", "utils", "database"]
 
-# version = 0.0.1
+__version__ = "0.0.1-alfa"
+
+NAME = "safety_questions"

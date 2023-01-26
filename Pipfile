@@ -2,8 +2,6 @@
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
-version = "0.0.1"
-license = "MIT"
 
 [packages]
 
