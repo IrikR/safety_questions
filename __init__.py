@@ -2,6 +2,6 @@
 
 __all__ = ["NAME", "main", "question", "connect_db", "utils", "database"]
 
-__version__ = "0.0.1-alfa"
+__version__ = "0.0.2-alfa"
 
 NAME = "safety_questions"
