@@ -85,6 +85,17 @@ class ReadDB(ConnectDB):
         inquiry_id = f"select count (*) from {them}"
         return self.conn_db(inquiry_id)
 
+    def select_by_name(self, names: str):
+        """
+        SELECT COUNT(names) FROM "result" r WHERE names = '{names}';
+        SELECT SUM(correct_answer) FROM "result" r WHERE names = '{names}';
+        SELECT SUM(wrong_answer) FROM "result" r WHERE names = '{names}';
+        SELECT COUNT(names), SUM(correct_answer), SUM(wrong_answer) FROM "result" r WHERE names = '{names}' ;
+        """
+        sample = f"SELECT COUNT(names), SUM(correct_answer), SUM(wrong_answer) " \
+                 f"FROM \"result\" r WHERE names = '{names}' ;"
+        return self.conn_db(sample)
+
 
 class WriteDB(ConnectDB):
     """
@@ -105,7 +116,7 @@ class WriteDB(ConnectDB):
 
 
 if __name__ == "__main__":
-    # read_db = ReadDB()
+    read_db = ReadDB()
     # ques = read_db.read_question(id_question=4,  question_topic="team_1")
     # print(ques)
     # # ques = conn_db.read_db()
@@ -120,6 +131,8 @@ if __name__ == "__main__":
     # num, *_ = read_db.number_of_questions(question_topic="team_1")
     # print(num)
     wr_db = WriteDB("Вася Пупкин")
-    wr_db.write_db(correct_answer=1, wrong_answer=6)
-    print(datetime.time(datetime.now()))
-    print(datetime.now())
+    wr_db.write_db(correct_answer=4, wrong_answer=3)
+    # print(datetime.time(datetime.now()))
+    # print(datetime.now())
+    count, corr_ans, wron_ans = read_db.select_by_name("Вася Пупкин")
+    print(count, corr_ans, wron_ans)
