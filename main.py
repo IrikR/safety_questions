@@ -20,7 +20,7 @@ class Main:
     def __init__(self):
         self.cli_log = CLILog()
         self.quest = Question()
-        self.name: str = input("Введите ваше имя в формате Имя Фамилия\n")
+        self.name: str = input("  Введите ваше имя в формате: Имя Фамилия\t")
         self.select_name = SelectResult()
         self.res_correct_answer: int = 0
         self.res_wrong_answer: int = 0
@@ -34,9 +34,9 @@ class Main:
                                    f"\t2 - сметь пользователя\n"
                                    f"\t3 - просмотр результатов пользователя\n"
                                    f"\t4 - показать список пользователей\n"
-                                   f"\tq - выйти из программы", "gray")
+                                   f"\tq - выйти из программы\n", "gray")
 
-            value = input("Выбор:\t")
+            value = input("  Выбор:  ")
             match value:
                 case "1":
                     self.res_correct_answer, self.res_wrong_answer = self.quest.io_question()
@@ -56,7 +56,7 @@ class Main:
         """
         Функция для смены пользователя.
         """
-        self.name = input("Введите ваше имя в формате Имя Фамилия\n")
+        self.name = input("  Введите ваше имя в формате: Имя Фамилия\t")
 
 
 if __name__ == "__main__":

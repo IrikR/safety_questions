@@ -21,7 +21,7 @@ class SelectResult:
         self.count, self.corr_answ, self.wron_answ = self.handler.select_by_name(name)
         self.cli_log.print_msg(f"Всего пройдено тестов:\t{self.count}", "skyblue")
         self.cli_log.print_msg(f"Правильных ответов:\t{self.corr_answ}", "green")
-        self.cli_log.print_msg(f"Неправильных ответов:\t{self.wron_answ}", "red")
+        self.cli_log.print_msg(f"Неправильных ответов:\t{self.wron_answ}\n", "red")
 
     def select_users(self):
         users = self.handler.select_all_users()
@@ -31,3 +31,4 @@ class SelectResult:
             self.count, self.corr_answ, self.wron_answ = self.handler.select_by_name(i)
             self.cli_log.print_msg(f"{i: ^19} | {self.count: ^17} | {self.corr_answ: ^18} | "
                                    f"{self.wron_answ: ^17}", "gray")
+        self.cli_log.print_msg(f"{'='*80}\n", "purple")

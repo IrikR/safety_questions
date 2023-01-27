@@ -3,7 +3,6 @@
 __all__ = ["CLILog"]
 
 import ctypes
-from datetime import datetime
 
 
 class CLILog:
@@ -25,35 +24,29 @@ class CLILog:
         kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 
     @staticmethod
-    def print_msg(msg: str, msg_color: [int, str]):
-
-        if msg_color == 1 or msg_color == 'red':
-            # красный Red
-            print(f"\033[31m {msg}")
-        elif msg_color == 2 or msg_color == 'green':
-            # зеленый green
-            print(f"\033[32m {msg}")
-        elif msg_color == 3 or msg_color == 'orange':
-            # оранжевый orange
-            print(f"\033[33m {msg}")
-        elif msg_color == 4 or msg_color == 'blue':
-            # синий blue
-            print(f"\033[34m {msg}")
-        elif msg_color == 5 or msg_color == 'purple':
-            # фиолетовый purple
-            print(f"\033[35m {msg}")
-        elif msg_color == 6 or msg_color == 'skyblue':
-            # голубой blue
-            print(f"\033[36m {msg}")
-        elif msg_color == 7 or msg_color == 'gray':
-            # серый
-            print(f"\033[37m {msg}")
-        else:
-            # черный, если пришел неизвестный аргумент
-            print(f"\033[0;0m {msg}")
+    def print_msg(msg: str, msg_color: str):
+        match msg_color:
+            # case "black":
+            #     print(f"\033[30m {msg}")
+            case "red":
+                print(f"\033[31m {msg}")
+            case "green":
+                print(f"\033[32m {msg}")
+            case "orange":
+                print(f"\033[33m {msg}")
+            case "blue":
+                print(f"\033[34m {msg}")
+            case "purple":
+                print(f"\033[35m {msg}")
+            case "skyblue":
+                print(f"\033[36m {msg}")
+            case "gray":
+                print(f"\033[37m {msg}")
+            case _:
+                print(f"\033[0;0m {msg}")
 
     @staticmethod
-    def progress_bar(percent: int=0, max_it: int=100) -> None:
+    def progress_bar(percent: int = 0, max_it: int = 100) -> None:
         """
         Функция предназначена для отображения в терминале прогресса выполнения.
         :param percent: Текущая итерация
@@ -66,3 +59,16 @@ class CLILog:
         print('\r[', '#' * left, ' ' * right, ']',
               f' {percent_tek:.0f}%',
               sep='', end='', flush=True)
+
+
+if __name__ == "__main__":
+    cli = CLILog()
+    cli.print_msg(f"{'asdf' * 20}", "black")
+    cli.print_msg(f"{'asdf' * 20}", "red")
+    cli.print_msg(f"{'asdf' * 20}", "green")
+    cli.print_msg(f"{'asdf' * 20}", "orange")
+    cli.print_msg(f"{'asdf' * 20}", "blue")
+    cli.print_msg(f"{'asdf' * 20}", "purple")
+    cli.print_msg(f"{'asdf' * 20}", "skyblue")
+    cli.print_msg(f"{'asdf' * 20}", "gray")
+    cli.print_msg(f"{'asdf' * 20}", "black")

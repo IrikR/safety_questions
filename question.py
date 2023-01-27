@@ -63,15 +63,15 @@ class Question:
                 res_corr_ans = corr_answer(1)
             elif answer != correct_answer:
                 self.msg.print_msg("неправильный ответ", "red")
-                self.msg.print_msg(f"правильный ответ: {correct_answer}", "orange")
+                self.msg.print_msg(f"правильный ответ: {correct_answer}\n", "orange")
                 res_wrong_ans = wrong_answer(1)
-        self.msg.print_msg(f"\n\tПравильных ответов: {res_corr_ans}", "green")
+        self.msg.print_msg(f"\tПравильных ответов: {res_corr_ans}", "green")
         self.msg.print_msg(f"\tНеправильных ответов: {res_wrong_ans}\n", "red")
         self.msg.print_msg("", "gray")
         return res_corr_ans, res_wrong_ans
 
-    def record_result(self, name, corr_answ, wrong_answ):
-        self.handler.write_db(name, corr_answ, wrong_answ)
+    def record_result(self, name: str, corr_answ: int, wrong_answ: int) -> None:
+        self.handler.write_db(names=name, correct_answer=corr_answ, wrong_answer=wrong_answ)
 
 
 if __name__ == "__main__":

@@ -155,20 +155,20 @@ if __name__ == "__main__":
     #              f"theme.theme from question_theme_1, theme where id_questions=1 and " \
     #              f"question_theme_1.theme=theme.id_theme ;"
     handler = HandlerRecord()
-    print(handler.read_question(id_question=1, question_topic="team_1"))
-    ques = handler.read_question(id_question=4,  question_topic="team_1")
-    print(ques)
+    # print(handler.read_question(id_question=1, question_topic="team_1"))
+    # ques = handler.read_question(id_question=4,  question_topic="team_1")
+    # print(ques)
     # # ques = conn_db.read_db()
-    corr_answer = ques[6]
-    print(corr_answer)
-    theme = ques[6]
-    print(theme)
-    ques_1 = ques[1:7]
-    for j in ques_1:
-        print(j)
+    # corr_answer = ques[6]
+    # print(corr_answer)
+    # theme = ques[6]
+    # print(theme)
+    # ques_1 = ques[1:7]
+    # for j in ques_1:
+    #     print(j)
 
-    num, *_ = handler.number_of_questions(question_topic="team_1")
-    print(num)
+    # num, *_ = handler.number_of_questions(question_topic="team_1")
+    # print(num)
     handler.write_db(names="Вася Пупкин", correct_answer=4, wrong_answer=3)
     # print(datetime.time(datetime.now()))
     # print(datetime.now())
