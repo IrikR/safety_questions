@@ -40,6 +40,7 @@ class GetOneRecord(ConnectDB):
     """
     Метод для чтения по одной записи из БД
     """
+
     def __init__(self):
         super().__init__("fetchone")
 
@@ -52,6 +53,7 @@ class GetAllUsers(ConnectDB):
     """
     Метод для чтения всех пользователей из БД
     """
+
     def __init__(self):
         super().__init__("fetchall")
 
@@ -64,6 +66,7 @@ class PutOneRecord(ConnectDB):
     """
     Метод для записи в БД
     """
+
     def __init__(self):
         super().__init__("put_user")
 
