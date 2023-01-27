@@ -10,14 +10,14 @@ __all__ = ["Question"]
 
 from random import randrange
 
+from click import secho as sc
+
 from connect_db import HandlerRecord
-from utils import CLILog
 
 
 class Question:
     def __init__(self):
         self.handler = HandlerRecord()
-        self.msg = CLILog()
 
     @staticmethod
     def counter():
@@ -33,7 +33,7 @@ class Question:
 
         return inner
 
-    def io_question(self):
+    def io_question(self) -> [int, int]:
         """
         Функция ввода-вывода вопросов и ответов в CLI.
         Не принимает ни каких аргументов.
@@ -53,21 +53,20 @@ class Question:
             theme = quest_full[7]
             quest = quest_full[0]
             ques_1 = quest_full[1:6]
-            self.msg.print_msg(f"\n{theme}\n", "skyblue")
-            self.msg.print_msg(f"{quest}\n", "skyblue")
+            sc(f"\n  {theme}\n", fg="cyan")
+            sc(f"  {quest}\n", fg="cyan")
             for j in ques_1:
-                self.msg.print_msg(j, "gray")
-            answer = int(input("ответ:\t"))
+                sc(f"  {j}", fg="white")
+            answer = int(input("  ответ:  "))
             if answer == correct_answer:
-                self.msg.print_msg("правильный ответ", "green")
+                sc(f"\tправильный ответ", fg="green")
                 res_corr_ans = corr_answer(1)
             elif answer != correct_answer:
-                self.msg.print_msg("неправильный ответ", "red")
-                self.msg.print_msg(f"правильный ответ: {correct_answer}\n", "orange")
+                sc(f"\tнеправильный ответ", fg="red")
+                sc(f"\tправильный ответ: {correct_answer}\n", fg="yellow")
                 res_wrong_ans = wrong_answer(1)
-        self.msg.print_msg(f"\tПравильных ответов: {res_corr_ans}", "green")
-        self.msg.print_msg(f"\tНеправильных ответов: {res_wrong_ans}\n", "red")
-        self.msg.print_msg("", "gray")
+        sc(f"\tПравильных ответов: {res_corr_ans}", fg="green")
+        sc(f"\tНеправильных ответов: {res_wrong_ans}\n", fg="red")
         return res_corr_ans, res_wrong_ans
 
     def record_result(self, name: str, corr_answ: int, wrong_answ: int) -> None:

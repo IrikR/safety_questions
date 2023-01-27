@@ -5,30 +5,30 @@
 
 __all__ = ["SelectResult"]
 
+from click import secho as sc
+
 from connect_db import HandlerRecord
-from utils import CLILog
 
 
 class SelectResult:
     def __init__(self):
         self.handler = HandlerRecord()
-        self.cli_log = CLILog()
         self.count: int = 0
         self.corr_answ: int = 0
         self.wron_answ: int = 0
 
     def select_result(self, name):
         self.count, self.corr_answ, self.wron_answ = self.handler.select_by_name(name)
-        self.cli_log.print_msg(f"Всего пройдено тестов:\t{self.count}", "skyblue")
-        self.cli_log.print_msg(f"Правильных ответов:\t{self.corr_answ}", "green")
-        self.cli_log.print_msg(f"Неправильных ответов:\t{self.wron_answ}\n", "red")
+        sc(f"  Всего пройдено тестов: {self.count}", fg="cyan")
+        sc(f"  Правильных ответов:    {self.corr_answ}", fg="green")
+        sc(f"  Неправильных ответов:  {self.wron_answ}\n", fg="red")
 
     def select_users(self):
         users = self.handler.select_all_users()
-        self.cli_log.print_msg(f"  Имя пользователя  | количество тестов | правильных ответов | "
-                               f"неправильных ответов", "gray")
+        sc(f"  Имя пользователя  | количество тестов | правильных ответов | "
+           f"неправильных ответов", fg="white")
         for i in users:
             self.count, self.corr_answ, self.wron_answ = self.handler.select_by_name(i)
-            self.cli_log.print_msg(f"{i: ^19} | {self.count: ^17} | {self.corr_answ: ^18} | "
-                                   f"{self.wron_answ: ^17}", "gray")
-        self.cli_log.print_msg(f"{'='*80}\n", "purple")
+            sc(f"{i: ^19} | {self.count: ^17} | {self.corr_answ: ^18} | "
+               f"{self.wron_answ: ^17}", fg="white")
+        sc(f"{'=' * 85}\n", fg="blue")

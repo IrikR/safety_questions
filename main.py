@@ -10,15 +10,15 @@
 """
 import sys
 
+from click import secho as sc
+
 from question import Question
 from select_result import SelectResult
-from utils import CLILog
 
 
 class Main:
 
     def __init__(self):
-        self.cli_log = CLILog()
         self.quest = Question()
         self.name: str = input("  Введите ваше имя в формате: Имя Фамилия\t")
         self.select_name = SelectResult()
@@ -30,11 +30,11 @@ class Main:
         Главная функция для взаимодействия с пользователем.
         """
         while True:
-            self.cli_log.print_msg(f"\t1 - пройти тест\n"
-                                   f"\t2 - сметь пользователя\n"
-                                   f"\t3 - просмотр результатов пользователя\n"
-                                   f"\t4 - показать список пользователей\n"
-                                   f"\tq - выйти из программы\n", "gray")
+            sc(f"\t1 - пройти тест\n"
+               f"\t2 - сметь пользователя\n"
+               f"\t3 - просмотр результатов пользователя\n"
+               f"\t4 - показать список пользователей\n"
+               f"\tq - выйти из программы\n", fg="white")
 
             value = input("  Выбор:  ")
             match value:
