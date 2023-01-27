@@ -25,7 +25,7 @@ class ConnectDB:
         :param inquiry: принимает строковый запрос SQL
         :return: возвращает прочитанные данные из БД
         """
-        with sqlite3.connect('database/questions3.db3') as conn:
+        with sqlite3.connect('database/questions.db3') as conn:
             cur = conn.cursor().execute(inquiry)
             match self.way_reading:
                 case "fetchone":
