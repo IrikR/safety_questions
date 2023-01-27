@@ -69,9 +69,6 @@ class Question:
         sc(f"\tНеправильных ответов: {res_wrong_ans}\n", fg="red")
         return res_corr_ans, res_wrong_ans
 
-    def record_result(self, name: str, corr_answ: int, wrong_answ: int) -> None:
-        self.handler.write_db(names=name, correct_answer=corr_answ, wrong_answer=wrong_answ)
-
 
 if __name__ == "__main__":
     ques = Question()

@@ -149,6 +149,13 @@ class HandlerRecord:
                   f"VALUES (\"{names}\", {correct_answer}, {wrong_answer}, \"{datetime.now()}\");"
         self.put_record.put_result_user(inquiry)
 
+    def delete_all_records(self):
+        """
+        Функция удаляет все записи из таблицы result
+        """
+        inquiry = f"DELETE from result ;"
+        self.put_record.put_result_user(inquiry)
+
 
 if __name__ == "__main__":
     # inquiry = f"select questions, answer_1, answer_2, answer_3, answer_4, answer_5, correct_answer, " \
@@ -166,7 +173,7 @@ if __name__ == "__main__":
     # ques_1 = ques[1:7]
     # for j in ques_1:
     #     print(j)
-
+    handler.delete_all_records()
     # num, *_ = handler.number_of_questions(question_topic="team_1")
     # print(num)
     handler.write_db(names="Вася Пупкин", correct_answer=4, wrong_answer=3)

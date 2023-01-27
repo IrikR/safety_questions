@@ -12,6 +12,7 @@ import sys
 
 from click import secho as sc
 
+from hanlers import HandlersDB
 from question import Question
 from select_result import SelectResult
 
@@ -20,6 +21,7 @@ class Main:
 
     def __init__(self):
         self.quest = Question()
+        self.handler = HandlersDB()
         self.name: str = input("  Введите ваше имя в формате: Имя Фамилия\t")
         self.select_name = SelectResult()
         self.res_correct_answer: int = 0
@@ -34,21 +36,24 @@ class Main:
                f"\t2 - сметь пользователя\n"
                f"\t3 - просмотр результатов пользователя\n"
                f"\t4 - показать список пользователей\n"
+               f"\t5 - удалить всех пользователей\n"
                f"\tq - выйти из программы\n", fg="white")
 
             value = input("  Выбор:  ")
             match value:
                 case "1":
                     self.res_correct_answer, self.res_wrong_answer = self.quest.io_question()
-                    self.quest.record_result(name=self.name,
-                                             corr_answ=self.res_correct_answer,
-                                             wrong_answ=self.res_wrong_answer)
+                    self.handler.record_result(name=self.name,
+                                               corr_answ=self.res_correct_answer,
+                                               wrong_answ=self.res_wrong_answer)
                 case "2":
                     self.relogin()
                 case "3":
                     self.select_name.select_result(self.name)
                 case "4":
                     self.select_name.select_users()
+                case "5":
+                    self.handler.erase_all_users()
                 case "q":
                     sys.exit(0)
 
