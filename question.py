@@ -10,13 +10,13 @@ __all__ = ["Question"]
 
 from random import randrange
 
-from connect_db import ReadDB
+from connect_db import HandlerRecord
 from utils import CLILog
 
 
 class Question:
     def __init__(self):
-        self.read_db = ReadDB()
+        self.handler = HandlerRecord()
         self.msg = CLILog()
 
     @staticmethod
@@ -46,9 +46,9 @@ class Question:
         wrong_answer = self.counter()
         res_wrong_ans: int = 0
         for i in range(1, 8):
-            number_of_questions, *_ = self.read_db.number_of_questions(question_topic=f"team_{i}")
+            number_of_questions, *_ = self.handler.number_of_questions(question_topic=f"team_{i}")
             question: int = randrange(1, number_of_questions)
-            quest_full = self.read_db.read_question(id_question=question, question_topic=f"team_{i}")
+            quest_full = self.handler.read_question(id_question=question, question_topic=f"team_{i}")
             correct_answer: int = int(quest_full[6])
             theme = quest_full[7]
             quest = quest_full[0]
@@ -69,6 +69,9 @@ class Question:
         self.msg.print_msg(f"\tНеправильных ответов: {res_wrong_ans}\n", "red")
         self.msg.print_msg("", "gray")
         return res_corr_ans, res_wrong_ans
+
+    def record_result(self, name, corr_answ, wrong_answ):
+        self.handler.write_db(name, corr_answ, wrong_answ)
 
 
 if __name__ == "__main__":

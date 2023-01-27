@@ -10,7 +10,6 @@
 """
 import sys
 
-from connect_db import WriteDB
 from question import Question
 from select_result import SelectResult
 from utils import CLILog
@@ -22,7 +21,6 @@ class Main:
         self.cli_log = CLILog()
         self.quest = Question()
         self.name: str = input("Введите ваше имя в формате Имя Фамилия\n")
-        self.result_wr = WriteDB()
         self.select_name = SelectResult()
         self.res_correct_answer: int = 0
         self.res_wrong_answer: int = 0
@@ -42,9 +40,9 @@ class Main:
             match value:
                 case "1":
                     self.res_correct_answer, self.res_wrong_answer = self.quest.io_question()
-                    self.result_wr.write_db(names=self.name,
-                                            correct_answer=self.res_correct_answer,
-                                            wrong_answer=self.res_wrong_answer)
+                    self.quest.record_result(name=self.name,
+                                             corr_answ=self.res_correct_answer,
+                                             wrong_answ=self.res_wrong_answer)
                 case "2":
                     self.relogin()
                 case "3":
